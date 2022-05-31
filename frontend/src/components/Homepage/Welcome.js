@@ -5,20 +5,19 @@ import { CardMedia, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
 const Welcome = (props) => {
-  const [data, setData] = useState(null);
   useEffect(() => {
     axios.get('https://api.spotify.com/v1/me', {headers: { 'Authorization' : 'Bearer ' + props.token}})
-    .then((res) => {console.log(res.data); setData(res.data)})
+    .then((res) => {console.log(res.data); props.setUser(res.data)})
+
   }, [])
-  if(data)
+  if(props.user)
     return (
       <>  
-          <h1>Welcome {data.display_name}!</h1>
+          <Typography variant='h3'>Welcome {props.user.display_name}!</Typography>
           <Box sx={{maxWidth: '200px'}}>
-            <CardMedia component='img' src={data.images[0].url} /> 
+            <CardMedia component='img' src={props.user.images[0].url} /> 
           </Box>
-          
-
+        
       </>
     )
     return (

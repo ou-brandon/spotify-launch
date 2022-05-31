@@ -8,7 +8,7 @@ const Homepage = (props) => {
     const [token, setToken] = useState(null);
   return (
     <>
-        {loggedIn ? <Welcome user={user} token={token}/> : <LogInPrompt setLoggedIn={setLoggedIn} setToken={setToken}/>}
+        {loggedIn ? <Welcome user={user} setUser={setUser} token={token}/> : <LogInPrompt setLoggedIn={setLoggedIn} setToken={setToken}/>}
     </>
   )
 }
