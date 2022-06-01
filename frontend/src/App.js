@@ -1,9 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import Homepage from './components/Homepage/Homepage';
 import Users from './components/Users/Users';
-import Navbar from './components/Navbar/Navbar'
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import React from 'react';
 import { useState } from 'react';
 import { UserTokenContext } from './components/Context/UserTokenContext';
@@ -17,7 +15,7 @@ function App() {
       <BrowserRouter>
         <UserTokenContext.Provider value={{user, setUser, accessToken, setAccessToken}}>
           <Routes>
-                <Route path="/" element={<Navbar />}/>
+                <Route exact path="/" element={<Navigate replace to='/home'/>} ></Route>
                 <Route path="/home" element={<Homepage/>} />
                 <Route path="/discover" element={<Users />} />
             </Routes>
