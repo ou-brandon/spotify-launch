@@ -1,21 +1,19 @@
+import { Typography } from '@mui/material';
 import React from 'react'
 import { useState } from 'react';
+import Navbar from '../Navbar/Navbar';
 import LogInPrompt from './LogInPrompt';
 import Welcome from './Welcome';
-import LikedSongs from '../liked-songs/LikedSongs.js'
-import Forum from '../forum/Forum.js'
-
+import { useContext } from 'react';
+import { UserTokenContext } from '../Context/UserTokenContext';
 const Homepage = (props) => {
     const [loggedIn, setLoggedIn] = useState(false);
-    const [user, setUser] = useState(null);
-    const [token, setToken] = useState(null);
+    const {user, setUser, accessToken, setAccessToken} = useContext(UserTokenContext);
   return (
     <>
-        {loggedIn ? <Welcome user={user} setUser={setUser} token={token}/> : <LogInPrompt setLoggedIn={setLoggedIn} setToken={setToken}/>}
-        <LikedSongs token={token} loggedIn={loggedIn}/>
-        <Forum token={token} loggedIn={loggedIn} user={user} />
+        {loggedIn ? <Welcome/> : <LogInPrompt loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}
+        {/*accessToken*/}
     </>
   )
 }
-
 export default Homepage;
