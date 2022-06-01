@@ -3,28 +3,32 @@ import axios from 'axios'
 import { useState } from 'react';
 import { CardMedia, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-
+import { useContext } from 'react';
+import { UserTokenContext } from '../Context/UserTokenContext';
+import Navbar from '../Navbar/Navbar';
 const Welcome = (props) => {
+  const {user, setUser, accessToken, setAccessToken} = useContext(UserTokenContext);
   useEffect(() => {
-    axios.get('https://api.spotify.com/v1/me', {headers: { 'Authorization' : 'Bearer ' + props.token}})
-    .then((res) => {console.log(res.data); props.setUser(res.data)})
+    axios.get('https://api.spotify.com/v1/me', {headers: { 'Authorization' : 'Bearer ' + accessToken}})
+    .then((res) => {console.log(res.data); setUser(res.data)})
 
-  }, [])
-  if(props.user)
+  }, [accessToken])
+  if(user)
     return (
       <>  
-          <Typography variant='h3'>Welcome {props.user.display_name}!</Typography>
+          <Navbar />
+          <Typography variant='h3'>Welcome {user.display_name}!</Typography>
           <Box sx={{maxWidth: '200px'}}>
-            <CardMedia component='img' src={props.user.images[0].url} /> 
+            <CardMedia component='img' src={user.images[0].url} /> 
           </Box>
         
       </>
     )
-    return (
-      <>
-        <Typography variant='h3'>Loading...</Typography>
-      </>
-    );
+  return (
+    <>
+      <Typography variant='h3'>Loading...</Typography>
+    </>
+  );
 }
 
 export default Welcome;
