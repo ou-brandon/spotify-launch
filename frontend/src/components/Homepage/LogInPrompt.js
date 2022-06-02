@@ -13,7 +13,6 @@ const LogInPrompt = (props) => {
         const stringAfterHashtag = hash.substring(1);
         const paramsInUrl = stringAfterHashtag.split('&');
         const paramsSplitUp = paramsInUrl.reduce((accumulator, currentValue) => {
-            //console.log(currentValue);
             const [key, value] = currentValue.split('=');
             accumulator[key] = value;
             return accumulator;
@@ -34,14 +33,10 @@ const LogInPrompt = (props) => {
 
     useEffect( () => {
         const getHash = async () => {
-            //console.log('hash change to', window.location.hash)
             if(window.location.hash){
-                //console.log(window.location.hash);
                 const {access_token} = getParams(window.location.hash);
-                //console.log('Access token', access_token);
                 props.setLoggedIn(true);
                 setAccessToken(access_token);
-                //window.location.href = 'http://localhost:3000/home'
             }
         }
         
@@ -60,9 +55,8 @@ const LogInPrompt = (props) => {
   return (
     <>
         <Navbar/>
-        {window.location.hash}
+        {/*window.location.hash*/}
         {!props.loggedIn && (
-            <Typography variant='h4'>Please log in to Spotify</Typography>,
             <Typography variant='h4'>Please log in to Spotify</Typography>,
             <Button onClick={handleLogin}>Log In</Button>
         )}

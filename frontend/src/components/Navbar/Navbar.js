@@ -17,12 +17,12 @@ import { UserTokenContext } from '../Context/UserTokenContext';
 import { Link } from 'react-router-dom';
 
 const pages = [['Home', '/home'], ['Discover', '/discover'], ['Inbox', '/inbox'], ['My Top Songs', '/topsongs'], ['My Top Artists', '/topartists']];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = [['Profile', '/profile']];
 
 const Navbar = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const {user} = useContext(UserTokenContext);
+  const {user, dbID} = useContext(UserTokenContext);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -156,7 +156,16 @@ const Navbar = (props) => {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  <Typography 
+                    textAlign="center"
+                    component={Link}
+                    to={`${setting[1]}/${dbID}` }
+                    key={setting}
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, display: 'block' }}
+                  >
+                    {setting[0]}
+                </Typography>
                 </MenuItem>
               ))}
             </Menu>
