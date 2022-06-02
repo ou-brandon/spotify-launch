@@ -8,6 +8,7 @@ import React from 'react';
 import { useState } from 'react';
 import { UserTokenContext } from './components/Context/UserTokenContext';
 import UserProfile from './components/UserProfile.js/UserProfile';
+import Inbox from './components/Inbox/Inbox';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -24,6 +25,7 @@ function App() {
                 <Route path="/likedsongs" element={<LikedSongs />} />
                 <Route path="/forum" element={<Forum />} />
                 <Route path="/profile/:id" element={<UserProfile />} />
+                <Route path="/inbox" element={<Inbox />} />
             </Routes>
         </UserTokenContext.Provider>
       </BrowserRouter>   
