@@ -47,8 +47,8 @@ const Navbar = (props) => {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/"
+            component={Link}
+            to="/home"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -101,8 +101,8 @@ const Navbar = (props) => {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href=""
+            component={Link}
+            to='/home'
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -131,7 +131,7 @@ const Navbar = (props) => {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          { user && <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -159,17 +159,17 @@ const Navbar = (props) => {
                   <Typography 
                     textAlign="center"
                     component={Link}
-                    to={`${setting[1]}/${dbID}` }
+                    to={`${setting[1]}/${user.id}`}
                     key={setting}
                     onClick={handleCloseNavMenu}
-                    sx={{ my: 2, display: 'block' }}
+                    sx={{ my: 2, textDecoration: 'none',display: 'block' }}
                   >
                     {setting[0]}
-                </Typography>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
+          </Box>}
         </Toolbar>
       </Container>
     </AppBar>

@@ -36,12 +36,11 @@ const LogInPrompt = (props) => {
             if(window.location.hash){
                 const {access_token} = getParams(window.location.hash);
                 props.setLoggedIn(true);
-                setAccessToken(access_token);
+                setAccessToken(access_token)   
             }
         }
         
         getHash();
-        
         
     }, [setAccessToken, props])
 
