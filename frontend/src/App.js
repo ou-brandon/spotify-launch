@@ -8,6 +8,7 @@ import React from 'react';
 import { useState } from 'react';
 import { UserTokenContext } from './components/Context/UserTokenContext';
 import UserProfile from './components/UserProfile.js/UserProfile';
+import TopSongs from './components/top-songs/TopSongs';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -22,6 +23,7 @@ function App() {
                 <Route path="/home" element={<Homepage/>} />
                 <Route path="/discover" element={<Users />} />
                 <Route path="/likedsongs" element={<LikedSongs />} />
+                <Route path="/topsongs" element={<TopSongs />} />
                 <Route path="/forum" element={<Forum />} />
                 <Route path="/profile/:id" element={<UserProfile />} />
             </Routes>

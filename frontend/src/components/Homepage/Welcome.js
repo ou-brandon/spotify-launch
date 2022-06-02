@@ -12,17 +12,19 @@ const Welcome = () => {
     .then((res) => {console.log(res.data); setUser(res.data)})
 
   }, [accessToken, setUser])
-  if(user)
+  if(user){
+    console.log(user);
     return (
       <>  
           <Navbar />
           <Typography variant='h3'>Welcome {user.display_name}!</Typography>
           <Box sx={{maxWidth: '200px'}}>
-            <CardMedia component='img' src={user.images[0].url} /> 
+            <CardMedia component='img' src={user.images.length && user.images[0].url} /> 
           </Box>
         
       </>
     )
+  }
   return (
     <>
       <Typography variant='h3'>Loading...</Typography>

@@ -141,7 +141,7 @@ const Navbar = (props) => {
             <Tooltip title="Open settings">
               
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="My Profile Picture" src={user ? user.images[0].url : ""} />
+                <Avatar alt="My Profile Picture" src={user ? (user.images.length && user.images[0].url) : ""} />
               </IconButton>
             </Tooltip>
             <Menu

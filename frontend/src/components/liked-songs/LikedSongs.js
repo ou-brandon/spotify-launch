@@ -10,7 +10,6 @@ import Navbar from '../Navbar/Navbar';
 
 const LikedSongs = () => {
     const {user, setUser, accessToken, setAccessToken} = useContext(UserTokenContext);
-
     // GET 
     const [songList, setSongList] = useState([]);
     const getSongs = async () => {
@@ -22,6 +21,7 @@ const LikedSongs = () => {
                 limit: 10
             }
         })
+        
         setSongList(data.items);
     }
 
@@ -36,7 +36,8 @@ const LikedSongs = () => {
             <div>
             <h1>Liked Songs</h1>
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                {songList && songList.map(song => <Grid item xs={3}><Song song={song}/></Grid>)}
+                {songList && songList.map(song => 
+                <Grid item xs={3}><Song song={song}/></Grid>)}
             </Grid>
             </div>
         : <p>Please Login</p>
