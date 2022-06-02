@@ -16,7 +16,7 @@ import { useContext } from 'react';
 import { UserTokenContext } from '../Context/UserTokenContext';
 import { Link } from 'react-router-dom';
 
-const pages = [['Home', '/home'], ['Discover', '/discover'], ['Inbox', '/inbox'], ['My Top Songs', '/topsongs'], ['My Top Artists', '/topartists']];
+const pages = [['Home', '/home'], ['Discover', '/discover'], ['Inbox', '/inbox'], ['Liked Songs', '/likedsongs'], ['My Top Songs', '/topsongs'], ['My Top Artists', '/topartists'], ['Forum', '/forum']];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Navbar = (props) => {
