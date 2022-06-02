@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 import Navbar from '../Navbar/Navbar';
 import { useContext } from 'react';
 import { UserTokenContext } from '../Context/UserTokenContext';
@@ -13,6 +14,8 @@ const TopArtists = () => {
 
     //GET
     const [topArtists, setTopArtists] = useState([]);
+    const [timePeriod, setTimePeriod] = useState([]);
+    
     const getTopArtists = async () => {
         const {data} = await axios.get(TOPARTISTS_ENDPOINT, {
           headers: {Authorization: `Bearer ${token}`,}
@@ -31,7 +34,7 @@ const TopArtists = () => {
     return (
       <>
         <Navbar/>
-        <button onClick={getTopArtists}>Get Top Artists</button>
+        <Button onClick={getTopArtists}>Get Top Artists</Button>
         <br></br>
         <h3>Top Artists:</h3>
         {topArtists && topArtists.map(artist => <Artist artist = {artist}/>)}   

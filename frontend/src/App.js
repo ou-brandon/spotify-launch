@@ -5,11 +5,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import React from 'react';
 import { useState } from 'react';
 import { UserTokenContext } from './components/Context/UserTokenContext';
-<<<<<<< HEAD
 import TopArtists from './components/top-artists/TopArtists';
-=======
-import UserProfile from './components/UserProfile.js/UserProfile';
->>>>>>> 41db6e988c95a0d3df2a3215aaaeabf35ac247e3
 
 function App() {
   const [user, setUser] = useState(null);
