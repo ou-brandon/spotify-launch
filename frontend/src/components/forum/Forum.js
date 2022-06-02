@@ -1,4 +1,4 @@
-import { TextField, Card, Button } from '@mui/material'
+import { TextField, Card, Button, Box } from '@mui/material'
 import { useRef, useEffect, useState } from "react"
 
 import { useContext } from 'react';
@@ -47,16 +47,16 @@ const Forum = (props) => {
         <Navbar />
         <h1>Forum</h1>
 
-        {user && 
-            <Card>
-            <form onSubmit={submitPost}>
-                <TextField label="Write your post here..." multiline rows={4} inputRef={postRef}></TextField>
-                <Button type="submit">Submit</Button>
-            </form>
-            </Card>
-        }
+        <Card>
+        <form onSubmit={submitPost}>
+            <TextField label="Write your post here..." multiline rows={4} inputRef={postRef}></TextField>
+            {user ? <Button type="submit">Submit</Button> : <p>Please login to submit</p>}
+        </form>
+        </Card>
 
-        {info && info.map(msg => <Message msg={msg}/>)}
+        <Box display="flex" flexDirection="row">
+            {info && info.map(msg => <Message msg={msg}/>)}
+        </Box>
     </>
     )
 
