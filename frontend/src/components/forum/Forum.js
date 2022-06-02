@@ -1,4 +1,4 @@
-import { TextField, Card, Button, Box } from '@mui/material'
+import { TextField, Card, Button, Box, Grid } from '@mui/material'
 import { useRef, useEffect, useState } from "react"
 
 import { useContext } from 'react';
@@ -30,6 +30,7 @@ const Forum = (props) => {
         .catch((err) => console.log(err))
 
         setDummy(!dummy);
+        document.getElementById("post").value = '';
     }
 
     // get messages from firebase
@@ -37,9 +38,14 @@ const Forum = (props) => {
     useEffect(() => {
         fetch("http://localhost:9000/forum/info")
         .then((res) => res.json())
-        .then((text) => setInfo(text.result))
+        .then((text) => {
+            text.result.sort((a,b) => {
+                return b.data.date.seconds-a.data.date.seconds
+            })
+            setInfo(text.result); 
+        })
         .catch((err) => console.log(err))
-        console.log(info)
+
     }, [dummy])
 
     return (
@@ -47,16 +53,18 @@ const Forum = (props) => {
         <Navbar />
         <h1>Forum</h1>
 
-        <Card>
-        <form onSubmit={submitPost}>
-            <TextField label="Write your post here..." multiline rows={4} inputRef={postRef}></TextField>
-            {user ? <Button type="submit">Submit</Button> : <p>Please login to submit</p>}
-        </form>
-        </Card>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+            <Grid item xs={3}>
+            <Card variant="outlined" sx={{width: 300, height: 200, margin:2}}>
+            <form onSubmit={submitPost}>
+                <TextField id="post" label="Write your post here..." multiline rows={4} inputRef={postRef}></TextField>
+                {user ? <Button type="submit">Submit</Button> : <p>Please login to submit</p>}
+            </form>
+            </Card>
+            </Grid>
 
-        <Box display="flex" flexDirection="row">
-            {info && info.map(msg => <Message msg={msg}/>)}
-        </Box>
+            {info && info.map(msg => <Grid item xs={3}><Message msg={msg}/></Grid>)}
+        </Grid>
     </>
     )
 

@@ -19,9 +19,9 @@ router.post("/post", (req, res, next) => {
 
 // get
 router.get("/info", async (req, res, next) => {
-    const allDocData = [];
+    let allDocData = [];
     const docs = await getDocs(collection(db, "forum_posts"))
-    docs.forEach((doc) => allDocData.push(doc.data()))
+    docs.forEach((doc) => allDocData.push({id: doc.id, data: doc.data()}))
     res.json({result: allDocData})
 })
 
