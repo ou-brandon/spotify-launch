@@ -22,7 +22,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const Navbar = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const {user, dbID} = useContext(UserTokenContext);
+  const {user} = useContext(UserTokenContext);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -39,6 +39,12 @@ const Navbar = (props) => {
     setAnchorElUser(null);
   };
 
+  const handleLogout = () => {
+    window.location.reload(true);
+    window.location.href = 'http://localhost:3000/home'
+    handleCloseNavMenu();
+  }
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -47,8 +53,8 @@ const Navbar = (props) => {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/"
+            component={Link}
+            to="/home"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -101,8 +107,8 @@ const Navbar = (props) => {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href=""
+            component={Link}
+            to='/home'
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -131,7 +137,7 @@ const Navbar = (props) => {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          { user && <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -155,21 +161,37 @@ const Navbar = (props) => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography 
-                    textAlign="center"
-                    component={Link}
-                    to={`${setting[1]}/${dbID}` }
-                    key={setting}
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, display: 'block' }}
-                  >
-                    {setting[0]}
-                </Typography>
-                </MenuItem>
+                <div>
+                  {setting[0] === 'Profile' && <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography 
+                      textAlign="center"
+                      component={Link}
+                      to={`${setting[1]}/${user.id}`}
+                      key={setting}
+                      onClick={handleCloseNavMenu}
+                      sx={{ my: 1, textDecoration: 'none',display: 'block' }}
+                    >
+                      {setting[0]}
+                    </Typography>
+                  </MenuItem>}
+                  {setting[0] === 'Logout' && <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography 
+                      textAlign="center"
+                      component={Link}
+                      to={'/home'}
+                      key={setting}
+                      onClick={handleLogout}
+                      sx={{ my: 1, textDecoration: 'none',display: 'block' }}
+                    >
+                      {setting[0]}
+                    </Typography>
+                  </MenuItem>}
+                </div>
+                
+                
               ))}
             </Menu>
-          </Box>
+          </Box>}
         </Toolbar>
       </Container>
     </AppBar>
