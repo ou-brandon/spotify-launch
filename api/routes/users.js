@@ -7,7 +7,6 @@ router.get('/', async (req, res, next) => {
   const users = [];
   const querySnapshot = await getDocs(collection(db, "users"));
   querySnapshot.forEach((doc) => {
-    // doc.data() is never undefined for query doc snapshots
     users.push([doc.id, doc.data()]);
     console.log(doc.id, doc.data());
   });
