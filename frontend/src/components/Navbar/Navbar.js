@@ -17,7 +17,7 @@ import { UserTokenContext } from '../Context/UserTokenContext';
 import { Link } from 'react-router-dom';
 
 const pages = [['Home', '/home'], ['Discover', '/discover'], ['Inbox', '/inbox'], ['Liked Songs', '/likedsongs'], ['My Top Songs', '/topsongs'], ['My Top Artists', '/topartists'], ['Forum', '/forum']];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = [['Profile', '/profile'], ['Logout', '']];
 
 const Navbar = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
