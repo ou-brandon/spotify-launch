@@ -15,7 +15,7 @@ const UserTable = (props) => {
             </TableHead>
             <TableBody>
               {props.users && props.users.map((user) => (
-                <TableRow component={Link} to={`/users/${user[0]}`} key={user[1].spotifyID} sx={{  
+                <TableRow component={Link} to={`/profile/${user[1].spotifyID}`} key={user[1].spotifyID} sx={{  
                   '&:nth-of-type(odd)': {backgroundColor: '#d5e5ff'}, 
                   '&:nth-of-type(even)': {backgroundColor: '#eaf3ff'}, 
                   '&:last-child td, &:last-child th': {border: 0},
