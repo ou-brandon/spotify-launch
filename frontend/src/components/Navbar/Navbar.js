@@ -22,7 +22,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const Navbar = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const {user, setUser, accessToken, setAccessToken} = useContext(UserTokenContext);
+  const {user, dbID} = useContext(UserTokenContext);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -156,7 +156,16 @@ const Navbar = (props) => {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  <Typography 
+                    textAlign="center"
+                    component={Link}
+                    to={`${setting[1]}/${dbID}` }
+                    key={setting}
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, display: 'block' }}
+                  >
+                    {setting[0]}
+                </Typography>
                 </MenuItem>
               ))}
             </Menu>

@@ -1,18 +1,17 @@
 import React, { useEffect } from 'react'
 import axios from 'axios'
-import { useState } from 'react';
 import { CardMedia, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useContext } from 'react';
 import { UserTokenContext } from '../Context/UserTokenContext';
 import Navbar from '../Navbar/Navbar';
-const Welcome = (props) => {
-  const {user, setUser, accessToken, setAccessToken} = useContext(UserTokenContext);
+const Welcome = () => {
+  const {user, setUser, accessToken} = useContext(UserTokenContext);
   useEffect(() => {
     axios.get('https://api.spotify.com/v1/me', {headers: { 'Authorization' : 'Bearer ' + accessToken}})
     .then((res) => {console.log(res.data); setUser(res.data)})
 
-  }, [accessToken])
+  }, [accessToken, setUser])
   if(user)
     return (
       <>  
