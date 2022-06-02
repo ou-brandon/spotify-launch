@@ -17,12 +17,12 @@ import { UserTokenContext } from '../Context/UserTokenContext';
 import { Link } from 'react-router-dom';
 
 const pages = [['Home', '/home'], ['Discover', '/discover'], ['Inbox', '/inbox'], ['My Top Songs', '/topsongs'], ['My Top Artists', '/topartists']];
-const settings = [['Profile', '/profile']];
+const settings = [['Profile', '/profile'], ['Logout', '']];
 
 const Navbar = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const {user, dbID} = useContext(UserTokenContext);
+  const {user} = useContext(UserTokenContext);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -38,6 +38,12 @@ const Navbar = (props) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleLogout = () => {
+    window.location.reload(true);
+    window.location.href = 'http://localhost:3000/home'
+    handleCloseNavMenu();
+  }
 
   return (
     <AppBar position="static">
@@ -155,18 +161,34 @@ const Navbar = (props) => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography 
-                    textAlign="center"
-                    component={Link}
-                    to={`${setting[1]}/${user.id}`}
-                    key={setting}
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, textDecoration: 'none',display: 'block' }}
-                  >
-                    {setting[0]}
-                  </Typography>
-                </MenuItem>
+                <div>
+                  {setting[0] === 'Profile' && <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography 
+                      textAlign="center"
+                      component={Link}
+                      to={`${setting[1]}/${user.id}`}
+                      key={setting}
+                      onClick={handleCloseNavMenu}
+                      sx={{ my: 1, textDecoration: 'none',display: 'block' }}
+                    >
+                      {setting[0]}
+                    </Typography>
+                  </MenuItem>}
+                  {setting[0] === 'Logout' && <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography 
+                      textAlign="center"
+                      component={Link}
+                      to={'/home'}
+                      key={setting}
+                      onClick={handleLogout}
+                      sx={{ my: 1, textDecoration: 'none',display: 'block' }}
+                    >
+                      {setting[0]}
+                    </Typography>
+                  </MenuItem>}
+                </div>
+                
+                
               ))}
             </Menu>
           </Box>}

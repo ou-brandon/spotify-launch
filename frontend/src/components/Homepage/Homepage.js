@@ -25,7 +25,6 @@ const Homepage = () => {
   return (
     <>
         {(loggedIn || user) ? <Welcome/> : <LogInPrompt loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}
-        {dbID}
     </>
   )
 }

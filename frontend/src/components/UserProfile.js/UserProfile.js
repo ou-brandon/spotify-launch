@@ -29,7 +29,7 @@ const UserProfile = (props) => {
         return (
             <>
                 <Navbar />
-                <Typography variant='h3'>{isUser ? 'My' : currUser[1].displayName + '\'s'} Profile</Typography>
+                <Typography sx={{marginTop: '1%'}} variant='h3'>{isUser ? 'My' : currUser[1].displayName + '\'s'} Profile</Typography>
             </>
         )
     else{
