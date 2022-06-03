@@ -21,13 +21,7 @@ function App() {
                 <Route exact path="/" element={<Navigate replace to='/home'/>} />
                 <Route path="/home" element={<Homepage/>} />
                 <Route path="/discover" element={<Users />} />
-<<<<<<< HEAD
                 <Route path="/topArtists" element={<TopArtists/>} />
-=======
-                <Route path="/likedsongs" element={<LikedSongs />} />
-                <Route path="/forum" element={<Forum />} />
-                <Route path="/profile/:id" element={<UserProfile />} />
->>>>>>> 8b007f7f4ab4be044a07d3328b6e68dc90233269
             </Routes>
         </UserTokenContext.Provider>
       </BrowserRouter>   

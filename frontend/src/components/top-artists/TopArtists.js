@@ -1,47 +1,57 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react'
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import Navbar from '../Navbar/Navbar';
-import { useContext } from 'react';
-import { UserTokenContext } from '../Context/UserTokenContext';
+import axios from 'axios'
+import React, { useState} from 'react'
+import Navbar from '../Navbar/Navbar'
+import Artist from './Artist.js'
+import { useContext, useEffect } from 'react'
+import { UserTokenContext } from '../Context/UserTokenContext'
+import ToggleButton from '@mui/material/ToggleButton'
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 
 const TopArtists = () => {
-    const TOPARTISTS_ENDPOINT = 'https://api.spotify.com/v1/me/top/artists'
-
-    const [token, setToken] = useState('')
     const {user, setUser, accessToken, setAccessToken} = useContext(UserTokenContext);
-
-    //GET
+    const TOPARTISTS_ENDPOINT = 'https://api.spotify.com/v1/me/top/artists'
+    const [time, setTime] = useState('medium_term');
     const [topArtists, setTopArtists] = useState([]);
-    const [timePeriod, setTimePeriod] = useState([]);
-    
+
     const getTopArtists = async () => {
         const {data} = await axios.get(TOPARTISTS_ENDPOINT, {
-          headers: {Authorization: `Bearer ${token}`,}
+          headers: {Authorization: `Bearer ${accessToken}`,},
+            params: {
+                time_range: time
+            }
       })
       setTopArtists(data.items);
     }
-  
-    const Artist = (props) => {
-      return (
-      <>
-        <Box padding={3} margin={2} >{props.artist.name}</Box>
-      </>
-      )
-    }
+
+    useEffect(() => {
+      if(user)
+        getTopArtists();
+    }, [time])
 
     return (
       <>
         <Navbar/>
-        <Button onClick={getTopArtists}>Get Top Artists</Button>
-        <br></br>
-        <h3>Top Artists:</h3>
-        {topArtists && topArtists.map(artist => <Artist artist = {artist}/>)}   
+        {user ? 
+          <div> 
+            <h3>Top Artists:</h3>
+            <ToggleButtonGroup>            
+              <ToggleButton onClick = {() => 
+                setTime('long_term')
+              }>All Time</ToggleButton>
+              <ToggleButton onClick = {() => 
+                setTime('medium_term')
+              }>Past Year</ToggleButton>
+              <ToggleButton onClick = {() => 
+                setTime('short_term')
+              }>Past Month</ToggleButton>
+            </ToggleButtonGroup>
+
+            {topArtists && topArtists.map(artist => <Artist artist = {artist}/>)}   
+          </div>
+        : <p>Log in to see your top artists.</p>
+          }
       </>
     )
-
-    
 }
 
 export default TopArtists;
