@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios';
 import { UserTokenContext } from '../Context/UserTokenContext';
 import Navbar from '../Navbar/Navbar';
-import { Typography, Box, Card } from '@mui/material';
+import { Typography, Box, Card, Grid } from '@mui/material';
 import MessageInput from './MessageInput';
 const Inbox = (props) => {
     const {user, dbID} = useContext(UserTokenContext);
@@ -35,14 +35,24 @@ const Inbox = (props) => {
                     const aTime = a[0].dateCreated.seconds
                     const bTime = b[0].dateCreated.seconds
                     if(aTime === bTime) return 0;
-                    return aTime > bTime;
-                }
+                    return aTime > bTime ? 1 : -1;
+                };
                 return a1 + a2 > b1 + b2 ? 1 : -1;
             });
             const groupedMessages = [];
             for(let i = 0; i < res.data.result.length; i++){
-                if(i == 0 || (res.data.result[i][2] != res.data.result[i-1][2] && res.data.result[i][2] != res.data.result[i-1][2]) || 
-                            res.data.result[i][1] != res.data.result[i-1][1] && res.data.result[i][1] != res.data.result[i-1][1] ){
+                if(i == 0 
+                    || (res.data.result[i][2] != res.data.result[i-1][1] && res.data.result[i][2] != res.data.result[i-1][2])
+                     || (res.data.result[i][1] != res.data.result[i-1][2] && res.data.result[i][1] != res.data.result[i-1][1])
+                ) {
+                    if(groupedMessages.length > 0){
+                        groupedMessages[groupedMessages.length - 1].sort((a, b) => {
+                            const aTime = a[0].dateCreated.seconds
+                            const bTime = b[0].dateCreated.seconds
+                            if(aTime === bTime) return 0;
+                            return aTime > bTime;
+                        })
+                    }
                     groupedMessages.push([]);
                 }
                 groupedMessages[groupedMessages.length - 1].push(res.data.result[i]);
@@ -58,22 +68,27 @@ const Inbox = (props) => {
   return (
     <>
         <Navbar />
-        {messages.length}
-        {messages.map((chat) => 
-            <Card sx={{margin: '20px'}}>
-                <Typography variant='h6'>Chat</Typography>
-                {chat.map((msg) => {
-                    return (
-                        <Box>
-                            <Typography variant='caption'>{msg[1]}:</Typography>
-                            <Typography>{msg[0].text}</Typography>
-                            <Typography variant='caption'>{timeToString(msg[0].dateCreated.seconds)}</Typography>
-                        </Box>    
-                    );
-                })}
-            </Card>
+        <Grid container rowSpacing={1} columnSpacing={1}>
+
+            {messages.map((chat) => 
+            <Grid item xs={4}>
+                <Card sx={{padding: '20px', margin: '20px'}}>
+                    <Typography variant='h6'>Chat with <em>{chat[0][1] === user.display_name ? chat[0][2] : chat[0][1]}</em></Typography>
+                    {chat.map((msg) => {
+                        return (
+                            <Box>
+                                <Typography key={`${msg}1`} variant='caption'><strong>{msg[1]}:   ({timeToString(msg[0].dateCreated.seconds)})</strong></Typography>
+                                <Typography key={`${msg}2`}>{msg[0].text}</Typography>
+                            </Box>    
+                        );
+                    })}
+                </Card>
+            </Grid>
+            )}   
+        </Grid>
+        
             
-        )}
+        
             
                 
         
