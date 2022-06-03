@@ -34,8 +34,8 @@ const LikedSongs = () => {
         <Navbar/>
         {user ?
             <div>
-                <Typography variant='h6'>Liked Songs</Typography>
-                <Grid sx={{marginLeft: '90px'}} container rowSpacing={3}>
+                <Typography sx={{margin: '.5%'}} variant='h4'><strong>Liked Songs</strong></Typography>
+                <Grid sx={{marginLeft: '5%'}} container rowSpacing={3}>
                     {songList && songList.map(song => <Grid item xs={3}><Song song={song}/></Grid>)}
                 </Grid>
             </div>
