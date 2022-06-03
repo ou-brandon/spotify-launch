@@ -1,9 +1,9 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import axios from "axios"
 import { Box, Stack, Grid, GridItem } from '@mui/material'
 
 import Song from './Song.js'
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { UserTokenContext } from '../Context/UserTokenContext';
 import Navbar from '../Navbar/Navbar';
 
@@ -25,10 +25,11 @@ const LikedSongs = () => {
         setSongList(data.items);
     }
 
-
-    if(user)
-        getSongs();
-
+    useEffect(() => {
+        if(user)
+            getSongs();
+    }, [])
+    
     return (
     <>
         <Navbar/>
