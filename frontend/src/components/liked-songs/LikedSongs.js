@@ -3,7 +3,7 @@ import axios from "axios"
 import { Box, Stack, Grid, GridItem } from '@mui/material'
 
 import Song from './Song.js'
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { UserTokenContext } from '../Context/UserTokenContext';
 import Navbar from '../Navbar/Navbar';
 

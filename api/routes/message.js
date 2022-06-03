@@ -2,18 +2,21 @@ const express = require("express")
 const router = express.Router()
 const db = require("../firebase")
 const axios = require('axios');
-const {getDocs, collection, addDoc, Timestamp, getDoc, doc} = require("firebase/firestore")
+const {getDocs, collection, addDoc, Timestamp, orderBy, query, onSnapshot} = require("firebase/firestore")
 
 // post
 router.post("/post", (req, res, next) => {
+    console.log(req.body);
     console.log(new Timestamp(req.body.date))
     addDoc(collection(db, "messages"), {
-        receiver: db.doc('users/'+ req.body.receiverID),
-        sender: db.doc('users/'+ req.body.senderID),
+        receiver: req.body.receiverID,
+        sender: req.body.senderID,
         text: req.body.text,
         dateCreated: Timestamp.fromDate(new Date()),
     })
-    res.send("received");
+
+    .catch((err) => console.log(err));
+    
 })
 
 // get
@@ -24,7 +27,7 @@ router.get("/info", async (req, res, next) => {
     .then((response) => {
         allUsers = (response.data.result);
     })
-    .then( async () => await getDocs(collection(db, "messages")))
+    .then( async () => await getDocs(collection(db, 'messages')))
     .then( async (docs) => {
         docs.forEach(document => {
             if(document.data().receiver === req.query.dbID || document.data().sender === req.query.dbID){
