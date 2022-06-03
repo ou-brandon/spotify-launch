@@ -4,6 +4,7 @@ import { UserTokenContext } from '../Context/UserTokenContext';
 import Navbar from '../Navbar/Navbar';
 import { Typography, Box, Card, Grid } from '@mui/material';
 import MessageInput from './MessageInput';
+
 const Inbox = (props) => {
     const {user, dbID} = useContext(UserTokenContext);
     const [messages, setMessages] = useState([]);
@@ -57,7 +58,6 @@ const Inbox = (props) => {
                 }
                 groupedMessages[groupedMessages.length - 1].push(res.data.result[i]);
             }
-            console.log('Grouped messages', groupedMessages);
             setMessages(groupedMessages);
         })
     }
