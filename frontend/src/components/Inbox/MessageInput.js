@@ -60,8 +60,8 @@ const MessageInput = (props) => {
                     renderInput={(params) => <TextField inputRef={recipientRef} {...params} label="Select a Recipient" />}
                 />
             </FormControl>
-
-            <TextField variant='outlined' inputRef={textRef} label='Message text' />
+            <br></br>
+            <TextField multiline InputProps={{style: {alignContent: 'flex-start'}}} sx={{minWidth: 500}} variant='outlined' inputRef={textRef} label='Message text' />
         </Box>
         <Button variant='contained' onClick={handleSubmit}>Send</Button>
     </>

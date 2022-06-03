@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios';
 import { UserTokenContext } from '../Context/UserTokenContext';
 import Navbar from '../Navbar/Navbar';
-import { Typography, Box, Card } from '@mui/material';
+import { Typography, Box, Card, Grid } from '@mui/material';
 import MessageInput from './MessageInput';
 const Inbox = (props) => {
     const {user, dbID} = useContext(UserTokenContext);
@@ -68,21 +68,27 @@ const Inbox = (props) => {
   return (
     <>
         <Navbar />
-        {messages.map((chat) => 
-            <Card sx={{margin: '20px'}}>
-                <Typography variant='h6'>Chat</Typography>
-                {chat.map((msg) => {
-                    return (
-                        <Box>
-                            <Typography key={`${msg}1`} variant='caption'>{msg[1]}:</Typography>
-                            <Typography key={`${msg}2`}>{msg[0].text}</Typography>
-                            <Typography key={`${msg}3`} variant='caption'>{timeToString(msg[0].dateCreated.seconds)}</Typography>
-                        </Box>    
-                    );
-                })}
-            </Card>
+        <Grid container rowSpacing={1} columnSpacing={1}>
+
+            {messages.map((chat) => 
+            <Grid item xs={4}>
+                <Card sx={{padding: '20px', margin: '20px'}}>
+                    <Typography variant='h6'>Chat with <em>{chat[0][1] === user.display_name ? chat[0][2] : chat[0][1]}</em></Typography>
+                    {chat.map((msg) => {
+                        return (
+                            <Box>
+                                <Typography key={`${msg}1`} variant='caption'><strong>{msg[1]}:   ({timeToString(msg[0].dateCreated.seconds)})</strong></Typography>
+                                <Typography key={`${msg}2`}>{msg[0].text}</Typography>
+                            </Box>    
+                        );
+                    })}
+                </Card>
+            </Grid>
+            )}   
+        </Grid>
+        
             
-        )}
+        
             
                 
         
