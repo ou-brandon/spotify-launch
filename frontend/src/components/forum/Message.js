@@ -1,10 +1,14 @@
-import { Card, Typography, Avatar, Stack } from '@mui/material'
+import { Card, Typography, Avatar, Stack, IconButton } from '@mui/material'
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useContext, useEffect, useState } from 'react';
 import { UserTokenContext } from '../Context/UserTokenContext';
 
+import axios from "axios"
+
 const Message = (props) => {
-    const {dbID} = useContext(UserTokenContext);
-    const {msg} = props;
+    const {dbID, user} = useContext(UserTokenContext);
+    const {msg, setDummy, dummy} = props;
     const data = msg.data;
     let date = new Date(data.date.seconds*1000);
 
@@ -13,6 +17,20 @@ const Message = (props) => {
         if(data.likes.includes(dbID))
             setLiked(true);
     }, [])
+
+    const handleClick = () => {
+        let arr = [...data.likes];
+        liked ? arr = arr.filter(userID => userID!=dbID) : arr.push(dbID);
+
+        axios.post("http://localhost:9000/forum/like?id="+msg.id, {
+            newLikes: arr
+        })
+        .then((res) => console.log(res.data))
+        .catch((err) => console.log(err))
+
+        setLiked(!liked);
+        setDummy(!dummy);
+    }
 
     return (
     <>
@@ -28,9 +46,15 @@ const Message = (props) => {
 
             <p></p>
             <Typography variant="h6">{data.text}</Typography>
-            <Typography>Likes: {data.likes.length}</Typography>
-            <button>Like</button>
-            <p></p>
+            <Stack direction="row" spacing={.1} sx={{marginLeft: 2}}>
+                {user ?
+                <IconButton onClick={handleClick}>
+                    {!liked ? <FavoriteBorderIcon /> : <FavoriteIcon />}
+                </IconButton>
+                : <IconButton disabled><FavoriteBorderIcon /></IconButton>}
+
+                <Typography sx={{paddingTop: '2'}}>{data.likes.length}</Typography>
+            </Stack>
             <Typography>{date.toDateString() + ' at ' + (date.toTimeString().split(" "))[0]}</Typography>
             
         </Card>

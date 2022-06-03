@@ -22,7 +22,6 @@ const LikedSongs = () => {
                 limit: 10
             }
         })
-        console.log(data.items);
         setSongList(data.items);
     }
 
@@ -31,7 +30,6 @@ const LikedSongs = () => {
             getSongs();
     }, [])
     
-
     return (
     <>
         <Navbar/>

@@ -8,7 +8,7 @@ import axios from "axios";
 import Message from "./Message.js"
 
 const Forum = (props) => {
-    const {user, setUser, accessToken, setAccessToken} = useContext(UserTokenContext);
+    const {user, dbID} = useContext(UserTokenContext);
     const [dummy, setDummy] = useState(false);
 
     // post new message to firebase
@@ -55,15 +55,15 @@ const Forum = (props) => {
 
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
             <Grid item xs={3}>
-            <Card variant="outlined" sx={{width: 300, height: 200, margin:2}}>
+            <Card sx={{width: 300, height: 200, margin:2}}>
             <form onSubmit={submitPost}>
-                <TextField id="post" label="Write your post here..." multiline rows={4} inputRef={postRef}></TextField>
-                {user ? <Button type="submit">Submit</Button> : <p>Please login to submit</p>}
+                <TextField id="post" label="Write your post here..." fullWidth multiline rows={5} inputRef={postRef}></TextField>
+                {user ? <Button type="submit">Post as {user.display_name}</Button> : <p>Please login to submit</p>}
             </form>
             </Card>
             </Grid>
 
-            {info && info.map(msg => <Grid item xs={3}><Message msg={msg}/></Grid>)}
+            {info && info.map(msg => <Grid item xs={3}><Message msg={msg} dummy={dummy} setDummy={setDummy}/></Grid>)}
         </Grid>
     </>
     )
