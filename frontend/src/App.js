@@ -8,6 +8,8 @@ import React from 'react';
 import { useState } from 'react';
 import { UserTokenContext } from './components/Context/UserTokenContext';
 import TopArtists from './components/top-artists/TopArtists';
+import UserProfile from './components/UserProfile.js/UserProfile';
+import Inbox from './components/Inbox/Inbox';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -22,6 +24,10 @@ function App() {
                 <Route path="/home" element={<Homepage/>} />
                 <Route path="/discover" element={<Users />} />
                 <Route path="/topArtists" element={<TopArtists/>} />
+                <Route path="/likedsongs" element={<LikedSongs />} />
+                <Route path="/forum" element={<Forum />} />
+                <Route path="/profile/:id" element={<UserProfile />} />
+                <Route path="/inbox" element={<Inbox />} />
             </Routes>
         </UserTokenContext.Provider>
       </BrowserRouter>   
