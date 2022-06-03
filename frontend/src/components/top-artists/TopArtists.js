@@ -6,6 +6,7 @@ import { useContext, useEffect } from 'react'
 import { UserTokenContext } from '../Context/UserTokenContext'
 import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
+import { Typography } from '@mui/material'
 
 const TopArtists = () => {
     const {user, setUser, accessToken, setAccessToken} = useContext(UserTokenContext);
@@ -33,7 +34,7 @@ const TopArtists = () => {
         <Navbar/>
         {user ? 
           <div> 
-            <h3>Top Artists:</h3>
+            <Typography sx={{padding: '.5%'}} variant='h4'>Top Artists:</Typography>
             <ToggleButtonGroup>            
               <ToggleButton onClick = {() => 
                 setTime('long_term')
