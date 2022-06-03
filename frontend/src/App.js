@@ -9,6 +9,8 @@ import { useState } from 'react';
 import { UserTokenContext } from './components/Context/UserTokenContext';
 import TopArtists from './components/top-artists/TopArtists';
 import UserProfile from './components/UserProfile.js/UserProfile';
+import TopSongs from './components/top-songs/TopSongs';
+import {Helmet} from 'react-helmet';
 import Inbox from './components/Inbox/Inbox';
 
 function App() {
@@ -17,6 +19,13 @@ function App() {
   const [dbID, setDBID] = useState(null);
   return (
     <div className="App">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Spotify Project</title>
+        <link rel="canonical" href="http://localhost:3000/home" />
+        <meta name="Spotify Project" content="Helmet application" />
+      </Helmet>
+
       <BrowserRouter>
         <UserTokenContext.Provider value={{user, setUser, accessToken, setAccessToken, dbID, setDBID}}>
           <Routes>
@@ -25,6 +34,7 @@ function App() {
                 <Route path="/discover" element={<Users />} />
                 <Route path="/topArtists" element={<TopArtists/>} />
                 <Route path="/likedsongs" element={<LikedSongs />} />
+                <Route path="/topsongs" element={<TopSongs />} />
                 <Route path="/forum" element={<Forum />} />
                 <Route path="/profile/:id" element={<UserProfile />} />
                 <Route path="/inbox" element={<Inbox />} />

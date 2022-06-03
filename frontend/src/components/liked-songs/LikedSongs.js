@@ -9,7 +9,6 @@ import Navbar from '../Navbar/Navbar';
 
 const LikedSongs = () => {
     const {user, setUser, accessToken, setAccessToken} = useContext(UserTokenContext);
-
     // GET 
     const [songList, setSongList] = useState([]);
     const getSongs = async () => {
@@ -21,6 +20,7 @@ const LikedSongs = () => {
                 limit: 10
             }
         })
+        
         setSongList(data.items);
     }
 
