@@ -7,9 +7,11 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import React from 'react';
 import { useState } from 'react';
 import { UserTokenContext } from './components/Context/UserTokenContext';
+import TopArtists from './components/top-artists/TopArtists';
 import UserProfile from './components/UserProfile.js/UserProfile';
 import TopSongs from './components/top-songs/TopSongs';
 import {Helmet} from 'react-helmet';
+import Inbox from './components/Inbox/Inbox';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -30,10 +32,12 @@ function App() {
                 <Route exact path="/" element={<Navigate replace to='/home'/>} />
                 <Route path="/home" element={<Homepage/>} />
                 <Route path="/discover" element={<Users />} />
+                <Route path="/topArtists" element={<TopArtists/>} />
                 <Route path="/likedsongs" element={<LikedSongs />} />
                 <Route path="/topsongs" element={<TopSongs />} />
                 <Route path="/forum" element={<Forum />} />
                 <Route path="/profile/:id" element={<UserProfile />} />
+                <Route path="/inbox" element={<Inbox />} />
             </Routes>
         </UserTokenContext.Provider>
       </BrowserRouter>   
