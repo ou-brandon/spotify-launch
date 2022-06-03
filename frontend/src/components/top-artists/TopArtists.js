@@ -14,6 +14,11 @@ const TopArtists = () => {
     const [time, setTime] = useState('medium_term');
     const [topArtists, setTopArtists] = useState([]);
 
+    const [activeButton, setActiveButton] = useState(2);
+    const handleButtonChange = (event, newButton) => {
+        setActiveButton(newButton);
+    }
+
     const getTopArtists = async () => {
         const {data} = await axios.get(TOPARTISTS_ENDPOINT, {
           headers: {Authorization: `Bearer ${accessToken}`,},
@@ -34,18 +39,26 @@ const TopArtists = () => {
         <Navbar/>
         {user ? 
           <div> 
+<<<<<<< HEAD
             <Typography sx={{padding: '.5%'}} variant='h4'>Top Artists:</Typography>
             <ToggleButtonGroup>            
               <ToggleButton onClick = {() => 
                 setTime('long_term')
+=======
+            <h3>See your Top Artists from: </h3>
+            <ToggleButtonGroup exclusive color = "primary" value = {activeButton} onChange = {handleButtonChange}>            
+              <ToggleButton value = "1" aria-label = "all time" onClick = {() => {
+                setTime('long_term')}
+>>>>>>> 707429653a0988d27af3364192244b283d5b6809
               }>All Time</ToggleButton>
-              <ToggleButton onClick = {() => 
-                setTime('medium_term')
+              <ToggleButton value = "2" aria-label = "past year" onClick = {() => {
+                setTime('medium_term')}
               }>Past Year</ToggleButton>
-              <ToggleButton onClick = {() => 
-                setTime('short_term')
+              <ToggleButton value = "3" aria-label = "past month" onClick = {() => {
+                setTime('short_term')}
               }>Past Month</ToggleButton>
             </ToggleButtonGroup>
+
 
             {topArtists && topArtists.map(artist => <Artist artist = {artist}/>)}   
           </div>
