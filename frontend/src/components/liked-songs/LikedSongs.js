@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import axios from "axios"
 import { Box, Stack, Grid, GridItem } from '@mui/material'
 
@@ -25,9 +25,10 @@ const LikedSongs = () => {
         setSongList(data.items);
     }
 
-
-    if(user)
-        getSongs();
+    useEffect(() => {
+        if(user)
+            getSongs();
+    }, [])
 
     return (
     <>
