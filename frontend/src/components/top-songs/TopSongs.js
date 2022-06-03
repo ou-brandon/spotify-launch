@@ -12,9 +12,6 @@ const SPOTIFY_AUTHORIZE_ENDPOINT = "https://accounts.spotify.com/authorize";
 const REDIRECT_URL_AFTER_LOGIN = "http://localhost://"
 
 const TOP_SONGS_ENDPOINT = "https://api.spotify.com/v1/me/top/tracks";
-// https://api.spotify.com/v1/me/tracks
-// https://api.spotify.com/v1/me/user-top-read
-// https://api.spotify.com/v1/me/top/tracks
 
 function TopSongs() {
     const {user, setUser, accessToken, setAccessToken} = useContext(UserTokenContext);
